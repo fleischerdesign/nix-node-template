@@ -7,7 +7,12 @@
   };
 
   outputs = { nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+    {
+      templates.default = {
+        path = ./.;
+        description = "A reproducible Node.js development environment with modern tooling";
+      };
+    } // flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
       in
