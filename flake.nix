@@ -2,17 +2,24 @@
   description = "A reproducible Node.js development environment with modern tooling.";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, flake-utils, ... }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
     {
       templates.default = {
         path = ./.;
         description = "A reproducible Node.js development environment with modern tooling";
       };
-    } // flake-utils.lib.eachDefaultSystem (system:
+    }
+    // flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
       in
@@ -30,5 +37,8 @@
             echo "Entering Node.js development environment with Node.js ${pkgs.nodejs_22.version} and yarn."
           '';
         };
-      });
+
+        formatter = pkgs.nixfmt-rfc-style;
+      }
+    );
 }
