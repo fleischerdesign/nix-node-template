@@ -29,9 +29,9 @@
                 nodePackage
                 pkgs.yarn
                 pkgs.pnpm
-                pkgs.nodePackages.typescript
-                pkgs.nodePackages.prettier
-                pkgs.nodePackages.eslint
+                pkgs.typescript
+                pkgs.prettier
+                pkgs.eslint
               ]
               ++ extraPackages;
 
